@@ -133,6 +133,59 @@ public class FirstTest {
 
     }
 
+    @Test
+    public void testSearchWordAndCancel()
+    {
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                "quality assurance",
+                "Cannot find search input",
+                5
+        );
+
+        waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Quality assurance']"),
+                "Cannot find 'Quality assurance'",
+                15
+        );
+
+        waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Quality Assurance Agency for Higher Education']"),
+                "Cannot find 'Quality Assurance Agency for Higher Education' ",
+                15
+        );
+
+        waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Quality Assurance International']"),
+                "Cannot find 'Quality Assurance International' ",
+                15
+        );
+
+        waitForElementAndClear(
+                By.id("org.wikipedia:id/search_src_text"),
+                "Cannot find search field",
+                10
+        );
+
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_close_btn"),
+                "Cannot find 'Cancel Search' input",
+                5
+        );
+
+        waitForElementNotPrecent(
+                By.id("org.wikipedia:id/search_close_btn"),
+                "X is still present on the page",
+                5
+        );
+    }
+
 
     private WebElement waitForElementPresent(By by, String error_massage, long timeoutInSeconds)
     {
