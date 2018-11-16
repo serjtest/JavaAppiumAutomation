@@ -180,6 +180,16 @@ public class FirstTest {
 
     }
 
-
+    private WebElement waitForElementAndCheckText(By by, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementAndClick(by, error_message, timeoutInSeconds);
+        String search_text = element.getAttribute("text");
+        Assert.assertEquals(
+                "We see unexpected title!",
+                "Search…",
+                search_text
+        );
+        return element;
+    }
 
 }
