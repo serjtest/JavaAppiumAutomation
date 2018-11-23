@@ -675,6 +675,38 @@ public class FirstTest {
 
     }
 
+    @Test
+    public void testAssertTitle()
+    {
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        String name_of_article = "Java";
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                name_of_article,
+                "Cannot find search input",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
+                "Cannot find 'Object-oriented programming language' topic searching by " + name_of_article,
+                15
+        );
+
+        String search_title_locator = "org.wikipedia:id/view_page_title_text";
+
+        assertElementPresent(
+                By.id(search_title_locator),
+                "Cannot find title by" + search_title_locator
+        );
+    }
+
 
 
     private WebElement waitForElementPresent(By by, String error_massage, long timeoutInSeconds)
@@ -805,7 +837,6 @@ public class FirstTest {
         if (amount_of_elements > 0) {
             String default_message = "An element " + by.toString() + " supposed to be not present";
             throw new AssertionError(default_message + " " + error_massage);
-
         }
     }
 
@@ -813,6 +844,15 @@ public class FirstTest {
     {
         WebElement element = waitForElementPresent(by, error_message, timeOutInSeconds);
         return element.getAttribute(attribute);
+    }
+
+    private void assertElementPresent(By by, String error_message)
+    {
+        int amount_of_elements = getAmountOfElements(by);
+        if (amount_of_elements < 0) {
+            String default_message = "An element " + by.toString() + " supposed to be present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
     }
 
 }
