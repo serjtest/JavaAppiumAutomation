@@ -1,6 +1,6 @@
 import lib.CoreTestCase;
-import lib.UI.MainPageObject;
-import lib.UI.SearchPageObject;
+import lib.ui.MainPageObject;
+import lib.ui.SearchPageObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -24,42 +24,17 @@ public class FirstTest extends CoreTestCase {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.waitForSearchResult();
+        SearchPageObject.waitForSearchResult("Object-oriented programming language");
     }
 
     @Test
     public void testCancelSearch()
     {
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/search_container"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search…')]"),
-                "Java",
-                "Cannot find search input",
-                15
-        );
-
-        MainPageObject.waitForElementAndClear(
-                By.id("org.wikipedia:id/search_src_text"),
-                "Cannot find search field",
-                10
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/search_close_btn"),
-                "Cannot find 'Cancel Search' input",
-                5
-        );
-
-        MainPageObject.waitForElementNotPrecent(
-                By.id("org.wikipedia:id/search_close_btn"),
-                "X is still present on the page",
-                5
-        );
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.initSearchInput();
+        SearchPageObject.waitForCancelButtonToAppear();
+        SearchPageObject.clickCancelSearch();
+        SearchPageObject.waitForCancelButtonToDisappear();
     }
 
     @Test
@@ -181,7 +156,7 @@ public class FirstTest extends CoreTestCase {
                 5
         );
 
-        MainPageObject.waitForElementNotPrecent(
+        MainPageObject.waitForElementNotPresent(
                 By.id("org.wikipedia:id/search_close_btn"),
                 "X is still present on the page",
                 5
@@ -302,7 +277,7 @@ public class FirstTest extends CoreTestCase {
                 "Cannot find saved article"
         );
 
-        MainPageObject.waitForElementNotPrecent(
+        MainPageObject.waitForElementNotPresent(
                 By.xpath("//*[@text='Java (programming language)']"),
                 "Cannot delete saved article",
                 7

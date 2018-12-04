@@ -1,4 +1,4 @@
-package lib.UI;
+package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -49,7 +49,7 @@ public class MainPageObject {
     }
 
 
-    public boolean waitForElementNotPrecent(By by, String error_message, long timeoutInSeconds)
+    public boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
