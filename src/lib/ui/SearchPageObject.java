@@ -11,7 +11,9 @@ public class SearchPageObject extends MainPageObject{
             SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
             SEARCH_RESULT_BY_SUBSTRING_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']",
             SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
-            SEARCH_EMPTY_RESULT_ELEMENT = "//*[@text='No results found']";
+            SEARCH_EMPTY_RESULT_ELEMENT = "//*[@text='No results found']",
+            SEARCH_FIELD = "org.wikipedia:id/search_src_text";
+
 
     public SearchPageObject(AppiumDriver driver)
     {
@@ -24,6 +26,15 @@ public class SearchPageObject extends MainPageObject{
         return SEARCH_RESULT_BY_SUBSTRING_TPL.replace("{SUBSTRING}", substring);
     }
     /* TEMPLATES METHODS */
+
+    public void clearSearchField()
+    {
+        this.waitForElementAndClear(
+                By.id(SEARCH_FIELD),
+                "Cannot find search field",
+                10
+        );
+    }
 
     public void initSearchInput()
     {

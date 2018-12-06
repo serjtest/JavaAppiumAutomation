@@ -4,6 +4,8 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import javax.swing.plaf.PanelUI;
+
 public class ArticlePageObject extends MainPageObject
 {
     private static final String
@@ -14,7 +16,9 @@ public class ArticlePageObject extends MainPageObject
         ADD_TO_MY_LIST_OVERLAY = "org.wikipedia:id/onboarding_button",
         MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input",
         MY_LIST_OK_BUTTON = "//*[@text='OK']",
-        CLOSE_ARTICLE_BUTTON = "//android.widget.ImageButton[@content-desc='Navigate up']";
+        CLOSE_ARTICLE_BUTTON = "//android.widget.ImageButton[@content-desc='Navigate up']",
+        ITEM_TITLE = "org.wikipedia:id/item_title",
+        FOLDER_NAME = "//*[@text='Some folder']";
 
 
     public ArticlePageObject(AppiumDriver driver)
@@ -83,6 +87,29 @@ public class ArticlePageObject extends MainPageObject
         );
     }
 
+    public void addArticleToMyFolder(String name_of_folder)
+    {
+        this.waitForElementAndClick(
+                By.xpath(OPTIONS_BUTTON),
+                "Cannot find button to open article options",
+                5
+        );
+
+        this.waitForElementAndClick(
+                By.xpath(OPTIONS_ADD_TO_MY_LIS_BUTTON),
+                "Cannot find button to add article to reading list",
+                5
+        );
+
+        this.waitForElementAndClick(
+                By.id(ITEM_TITLE),
+                "Cannot find folder name " + name_of_folder,
+                5
+        );
+    }
+
+
+
     public void closeArticle()
     {
         this.waitForElementAndClick(
@@ -91,5 +118,22 @@ public class ArticlePageObject extends MainPageObject
                 5
         );
 
+    }
+
+    public void assertTitle()
+    {
+        this.assertElementPresent(
+                By.id(TITLE),
+                "Cannot find title by" + TITLE
+        );
+    }
+
+    public void openFolderInMyList()
+    {
+        this.waitForElementAndClick(
+                By.id(ITEM_TITLE),
+                "Cannot find folder name ",
+                5
+        );
     }
 }

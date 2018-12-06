@@ -52,4 +52,29 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.waitForEmptyResultsLabel();
         SearchPageObject.assertThereIsNoResultOfSearch();
     }
+
+    @Test
+    public void testSearchWordAndCheck()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Film");
+        SearchPageObject.waitForSearchResult("Film");
+    }
+
+    @Test
+    public void testSearchWordAndCancel()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("quality assurance");
+        SearchPageObject.waitForSearchResult("Quality assurance");
+        SearchPageObject.waitForSearchResult("Quality Assurance Agency for Higher Education");
+        SearchPageObject.waitForSearchResult("Quality Assurance International");
+        SearchPageObject.clearSearchField();
+        SearchPageObject.waitForCancelButtonToAppear();
+        SearchPageObject.waitForCancelButtonToDisappear();
+    }
 }
